@@ -6,6 +6,7 @@ file(GLOB SHEEP_TOOLS_SOURCES "args/*.cpp" "basic/*.cpp")
 # 添加其他模块的include目录
 include_directories(args/include)
 include_directories(basic/include)
+include_directories(random/include)
 
 # 生成静态库
 add_library(sheeptools STATIC ${SHEEP_TOOLS_SOURCES})
@@ -14,4 +15,5 @@ add_library(sheeptools STATIC ${SHEEP_TOOLS_SOURCES})
 target_include_directories(sheeptools PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/args/include
     ${CMAKE_CURRENT_SOURCE_DIR}/basic/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/random/include
 )

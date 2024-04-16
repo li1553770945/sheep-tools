@@ -1,0 +1,16 @@
+# 忽略 tests 目录及其所有子目录中的所有文件
+tests/**/*
+
+# 但不忽略 tests 目录及其子目录中的 .cpp 文件
+!tests/**/*.cpp
+
+test.cpp
+test
+
+
+build
+CMakeFiles
+cmake_install.cmake
+CMakeCache.txt
+Makefile
+*.a

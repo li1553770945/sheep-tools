@@ -1,6 +1,7 @@
+#include <string>
+
 namespace sheep_basic
 {
-    #include <string>
     class Error
     {
         int code;

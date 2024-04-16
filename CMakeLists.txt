@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.22)
 project(sheep-tools)
 set( CMAKE_CXX_FLAGS "-std=c++17" )
 
-file(GLOB SHEEP_TOOLS_SOURCES "args/*.cpp" "basic/*.cpp")
+file(GLOB SHEEP_TOOLS_SOURCES "args/*.cpp" "basic/*.cpp" "random/*.cpp")
 # 添加其他模块的include目录
 include_directories(args/include)
 include_directories(basic/include)

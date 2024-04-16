@@ -46,19 +46,30 @@ namespace sheep_args
     }
     void ArgumentParser::Parse(int argc, char **argv)
     {
-        for(int i=1;i<argc;i++)
+        for (int i = 1; i < argc; i++)
         {
             std::string arg = argv[i];
-            if(this->alias_to_name.find(arg) != this->alias_to_name.end())
+            if (this->alias_to_name.find(arg) != this->alias_to_name.end())
             {
                 std::string name = this->alias_to_name[arg];
                 this->keys.push_back(name);
-                if(i<argc-1 && alias_to_name.find(argv[i+1]) == this->alias_to_name.end()) //如果后面还有参数，并且不在alias里面，认为是值
+                if (i < argc - 1 && alias_to_name.find(argv[i + 1]) == this->alias_to_name.end()) // 如果后面还有参数，并且不在alias里面，认为是值
                 {
-                    values[name] = argv[i+1];
+                    values[name] = argv[i + 1];
                     i++;
                 }
             }
+        }
+    }
+    std::string ArgumentParser::GetHelp(std::string name)
+    {
+        if (this->help.find(name) != this->help.end())
+        {
+            return this->help[name];
+        }
+        else
+        {
+            return "";
         }
     }
     void ArgumentParser::clear()

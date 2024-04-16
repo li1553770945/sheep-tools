@@ -5,6 +5,11 @@
 
 namespace sheep_random
 {
+    int UPPER = 1;
+    int LOWER = 1 << 1;
+    int NUM = 1 << 2;
+    int ALPHA = UPPER | LOWER;
+    int ALL = NUM | ALPHA;
     int randInRange(int min, int max)
     {
         static std::mt19937 rng(std::random_device{}());

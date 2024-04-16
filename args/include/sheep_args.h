@@ -15,6 +15,7 @@ namespace sheep_args
 
         std::optional<std::string> GetValue(std::string name);
         std::vector <std::string> GetKeys();
+        std::string GetHelp(std::string name);
         void Parse(int argc, char **argv);
         void clear();
 

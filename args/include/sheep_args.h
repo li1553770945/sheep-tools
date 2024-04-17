@@ -13,7 +13,8 @@ namespace sheep_args
         void AddArgument(std::string name, std::string alias, std::optional<std::string> help = std::nullopt, std::optional<std::string> default_value = std::nullopt);
         void AddArgument(std::string name, std::vector<std::string> aliases, std::optional<std::string> help = std::nullopt, std::optional<std::string> default_value = std::nullopt);
 
-        std::optional<std::string> GetValue(std::string name);
+        std::string GetValue(std::string name);
+        std::optional<std::string> GetValueWithError(std::string name);
         std::vector <std::string> GetKeys();
         std::string GetHelp(std::string name);
         void Parse(int argc, char **argv);

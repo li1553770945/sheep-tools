@@ -29,7 +29,18 @@ namespace sheep_args
             this->values[name] = default_value.value();
         }
     }
-    std::optional<std::string> ArgumentParser::GetValue(std::string name)
+    std::string ArgumentParser::GetValue(std::string name)
+    {
+        if (this->values.find(name) != this->values.end())
+        {
+            return this->values[name];
+        }
+        else
+        {
+            return "";
+        }
+    }
+    std::optional<std::string> ArgumentParser::GetValueWithError(std::string name)
     {
         if (this->values.find(name) != this->values.end())
         {

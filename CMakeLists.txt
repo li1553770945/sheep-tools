@@ -1,8 +1,9 @@
 cmake_minimum_required(VERSION 3.22)
 project(sheep-tools)
 set( CMAKE_CXX_FLAGS "-std=c++17" )
+set( CMAKE_CXX_FLAGS "-Werror=return-type" )
 
-file(GLOB SHEEP_TOOLS_SOURCES "args/*.cpp" "basic/*.cpp" "random/*.cpp")
+file(GLOB SHEEP_TOOLS_SOURCES "args/*.cpp" "basic/*.cpp" "random/*.cpp" "string/*.cpp" "log/*.cpp")
 # 添加其他模块的include目录
 include_directories(args/include)
 include_directories(basic/include)
@@ -16,4 +17,6 @@ target_include_directories(sheeptools PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/args/include
     ${CMAKE_CURRENT_SOURCE_DIR}/basic/include
     ${CMAKE_CURRENT_SOURCE_DIR}/random/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/string/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/log/include
 )

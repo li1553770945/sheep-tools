@@ -1,8 +1,8 @@
 # 忽略 tests 目录及其所有子目录中的所有文件
-tests/**/*
+temp_test/**
 
 # 但不忽略 tests 目录及其子目录中的 .cpp 文件
-!tests/**/*.cpp
+!temp_test/**/*.cpp
 
 test.cpp
 test

@@ -66,6 +66,10 @@
         "numeric": "cpp",
         "random": "cpp",
         "string_view": "cpp",
-        "numbers": "cpp"
+        "numbers": "cpp",
+        "list": "cpp",
+        "variant": "cpp",
+        "sstream": "cpp",
+        "fstream": "cpp"
     }
 }

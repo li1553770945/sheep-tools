@@ -8,44 +8,110 @@
 #include "sheep_basic.h"
 #include <memory>
 #include <variant>
+#include <typeinfo>
+#include <iostream>
 
 namespace sheep_args
 {
-
-    using ArgType = std::variant<int, double, std::string>;
+    template <typename T>
+    T parse_value(std::string value)
+    {
+        // static_assert(std::is_same_v<T, void>, "parse_value is not implemented for this type");
+        std::cout << value << std::endl;
+        // must impletemnt
+        return T(value);
+    }
+    template <>
+    inline int parse_value<int>(std::string value)
+    {
+        return atoi(value.data());
+    }
+    template <>
+    inline std::string parse_value<std::string>(std::string value)
+    {
+        return value;
+    }
+    template <>
+    inline float parse_value<float>(std::string value)
+    {
+        return atof(value.data());
+    }
 
     class ArgItem
     {
-        // friend class ArgumentParser;
+        friend class ArgumentParser;
         std::string name;
         std::vector<std::string> aliases;
-        ArgType value;
-        bool has_input = false;
-        bool has_value = 0;
+
+        std::string value;
+
+        bool input_by_user = false;
+        bool has_value = false;
 
         std::string help;
+
+        void SetInputValue(std::string v);
+
+        template <typename T>
+        void SetInputValue(T v)
+        {
+            this->input_by_user = true;
+            this->has_value = true;
+            this->value = std::to_string(v);
+        }
 
     public:
         ArgItem(std::string name);
         std::string GetName();
-        ArgItem &AddAlias(std::string alias);
-        // ArgItem &SetValueNum(int num); // 最多接受多少个参数 -1表示接受无限个参数
-        ArgItem &SetDefaultValue(ArgType value);
-        ArgItem &SetValue(ArgType value);
-        ArgItem &SetRequired(bool required);
-
         std::string GetHelp();
-        ArgType GetValue();
-        bool HasValue();
+        bool IsHasValue();
+        bool IsInputByUser();
+
+        template <typename FirstAlias, typename... RemainingAlias>
+        ArgItem &AddAlias(FirstAlias alias, RemainingAlias... aliases)
+        {
+            this->AddAlias(alias);
+            return this->AddAlias(aliases...);
+        }
+
+        ArgItem &AddAlias(std::string);
+        ArgItem &AddAlias(const char *);
+        ArgItem &AddAlias();
+
+        template <typename T>
+        ArgItem &SetDefaultValue(T value)
+        {
+            this->SetDefaultValue(std::to_string(value));
+            return *this;
+        }
+        ArgItem &SetDefaultValue(std::string value);
+        ArgItem &SetDefaultValue(const char *value);
+
+        template <typename T>
+        T GetValue()
+        {
+            return parse_value<T>(this->value);
+        }
     };
+
     class ArgumentParser
     {
     public:
-        ArgItem &AddArgument(std::string name);
-
+        ArgItem &AddArgument(const std::string &name);
         bool IsHasValue(std::string name);
         template <typename T>
-        T GetValue(std::string name);
+        T GetValue(std::string name)
+        {
+            auto it = this->name_to_arg.find(name);
+            if (it == this->name_to_arg.end())
+            {
+                return parse_value<T>("");
+            }
+            else
+            {
+                return it->second->GetValue<T>();
+            }
+        }
 
         std::vector<std::string> GetKeys(bool must_input = false, bool must_has_value = false);
 
@@ -55,9 +121,6 @@ namespace sheep_args
         void clear();
 
     private:
-        template <typename T, typename U>
-        T ArgumentParser::convert(const U &value) const;
-
         std::map<std::string, std::shared_ptr<ArgItem>> alias_to_arg;
         std::map<std::string, std::shared_ptr<ArgItem>> name_to_arg;
         std::vector<std::string> keys;

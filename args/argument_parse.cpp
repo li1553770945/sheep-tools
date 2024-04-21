@@ -10,7 +10,7 @@ namespace sheep_args
         return *item;
     }
 
-    bool ArgumentParser::IsHasValue(const std::string & name)
+    bool ArgumentParser::IsHasValue(const std::string &name)
     {
         if (this->name_to_arg.find(name) == this->name_to_arg.end())
         {
@@ -84,14 +84,14 @@ namespace sheep_args
                     it++;
                     continue;
                 }
+                bool has_equal = (arg.find('=') != std::string::npos);
                 // 如果真的有这个参数
                 this->keys.push_back(key);
                 auto current_it = it;
                 it++;
                 args.erase(current_it);
-
                 auto item = this->alias_to_arg[key];
-                if (arg.find('=') != std::string::npos) // 如果有等于号
+                if (has_equal) // 如果有等于号
                 {
 
                     item->SetInputValue(value);

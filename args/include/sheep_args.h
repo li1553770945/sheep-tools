@@ -113,7 +113,7 @@ namespace sheep_args
                 return it->second->GetValue<T>();
             }
         }
-
+        std::shared_ptr<ArgItem> operator [](const std::string & name);
         std::vector<std::string> GetKeys(bool must_input = false, bool must_has_value = false);
 
         std::string GetHelp(std::string name);

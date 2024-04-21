@@ -18,7 +18,14 @@ namespace sheep_args
         }
         return this->name_to_arg[name]->IsHasValue();
     }
-
+    std::shared_ptr<ArgItem> ArgumentParser::operator[](const std::string &name)
+    {
+         if (this->name_to_arg.find(name) == this->name_to_arg.end())
+        {
+            return nullptr;
+        }
+        return this->name_to_arg[name];
+    }
     std::vector<std::string> ArgumentParser::GetKeys(bool must_input, bool must_has_value)
     {
         std::vector<std::string> res;
@@ -44,11 +51,11 @@ namespace sheep_args
     }
     std::string ArgumentParser::GetHelp(std::string name)
     {
-        if (this->alias_to_arg.find(name) == this->alias_to_arg.end())
+        if (this->name_to_arg.find(name) == this->name_to_arg.end())
         {
             return "";
         }
-        return this->alias_to_arg[name]->GetHelp();
+        return this->name_to_arg[name]->GetHelp();
     }
 
     std::list<std::string> ArgumentParser::Parse(int argc, char **argv)

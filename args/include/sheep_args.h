@@ -64,6 +64,7 @@ namespace sheep_args
         ArgItem(std::string name);
         std::string GetName();
         std::string GetHelp();
+        void SetHelp(const char * help);
         bool IsHasValue();
         bool IsInputByUser();
 
@@ -98,7 +99,7 @@ namespace sheep_args
     {
     public:
         ArgItem &AddArgument(const std::string &name);
-        bool IsHasValue(std::string name);
+        bool IsHasValue(const std::string& name);
         template <typename T>
         T GetValue(std::string name)
         {
@@ -117,7 +118,7 @@ namespace sheep_args
 
         std::string GetHelp(std::string name);
         std::list<std::string> Parse(int argc, char **argv);
-        std::list<std::string> Parse(std::list<std::string> args);
+        void Parse(std::list<std::string> & args);
         void clear();
 
     private:

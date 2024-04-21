@@ -2,7 +2,7 @@
 #include "sheep_string.h"
 namespace sheep_args
 {
-    ArgItem &ArgumentParser::AddArgument(const std::string & name)
+    ArgItem &ArgumentParser::AddArgument(const std::string &name)
     {
         std::shared_ptr<ArgItem> item = std::make_shared<ArgItem>(name);
         this->items.push_back(item);
@@ -10,13 +10,13 @@ namespace sheep_args
         return *item;
     }
 
-    bool ArgumentParser::IsHasValue(std::string name)
+    bool ArgumentParser::IsHasValue(const std::string & name)
     {
-        if (this->alias_to_arg.find(name) == this->alias_to_arg.end())
+        if (this->name_to_arg.find(name) == this->name_to_arg.end())
         {
             return false;
         }
-        return this->alias_to_arg[name]->IsHasValue();
+        return this->name_to_arg[name]->IsHasValue();
     }
 
     std::vector<std::string> ArgumentParser::GetKeys(bool must_input, bool must_has_value)
@@ -58,9 +58,10 @@ namespace sheep_args
         {
             argv_vector.push_back(argv[i]);
         }
-        return this->Parse(argv_vector);
+        this->Parse(argv_vector);
+        return argv_vector;
     }
-    std::list<std::string> ArgumentParser::Parse(std::list<std::string> args)
+    void ArgumentParser::Parse(std::list<std::string> &args)
     {
         this->alias_to_arg.clear();
         for (auto &item : items)
@@ -111,7 +112,7 @@ namespace sheep_args
                 it++;
             }
         }
-        return args;
+        return;
     }
     void ArgumentParser::clear()
     {

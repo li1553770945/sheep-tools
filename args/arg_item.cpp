@@ -21,6 +21,10 @@ namespace sheep_args
     {
         return this->help;
     }
+    void  ArgItem::SetHelp(const char *  help)
+    {
+        this->help = help;
+    }
     bool ArgItem::IsHasValue()
     {
         return this->has_value;

@@ -60,7 +60,7 @@ namespace sheep_log
     };
 
     std::shared_ptr<Handler> endl(std::shared_ptr<Handler> handler);
-    
+
     class Logger
     {
         std::string name;
@@ -69,6 +69,7 @@ namespace sheep_log
 
     public:
         Logger(std::string name);
+        Logger(const Logger & logger);
         void AddHandler(std::shared_ptr<Handler> handler);
         Logger &operator[](LogLevel level);
 

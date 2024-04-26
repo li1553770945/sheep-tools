@@ -41,5 +41,9 @@ namespace sheep_log
     {
         std::cout << msg;
     }
+    void StreamHandler::Flush()
+    {
+        std::cout.flush();
+    }
 
 }

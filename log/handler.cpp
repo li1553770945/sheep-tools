@@ -4,6 +4,7 @@ namespace sheep_log
     std::shared_ptr<Handler> endl(std::shared_ptr<Handler> handler)
     {
         handler->Print("\n");
+        handler->Flush();
         handler->StartNewLine();
         return handler;
     }

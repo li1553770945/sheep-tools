@@ -35,6 +35,7 @@ namespace sheep_log
         virtual void Print(char *msg) = 0;
         virtual void Print(const char *msg) = 0;
 
+        virtual void Flush() = 0;
         void StartNewLine();
 
     public:
@@ -110,6 +111,7 @@ namespace sheep_log
         void Print(std::string msg) override;
         void Print(char *msg) override;
         void Print(const char *msg) override;
+        void Flush() override;
     };
 
     class FileHandler : public Handler
@@ -130,6 +132,7 @@ namespace sheep_log
         void Print(std::string msg) override;
         void Print(char *msg) override;
         void Print(const char *msg) override;
+        void Flush() override;
         ~FileHandler();
     };
 

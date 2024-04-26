@@ -46,6 +46,10 @@ namespace sheep_log
     {
         file<<msg;
     }
+    void FileHandler::Flush()
+    {
+        file.flush();
+    }
 
     FileHandler::~FileHandler()
     {

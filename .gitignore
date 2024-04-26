@@ -14,3 +14,6 @@ cmake_install.cmake
 CMakeCache.txt
 Makefile
 *.a
+
+test_args
+test_log
